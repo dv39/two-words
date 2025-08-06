@@ -111,7 +111,7 @@ export default function SearchResults() {
             <CardContent className="p-8 text-center">
               <LoadingSpinner size="lg" className="mb-4" />
               <p className="text-slate-600 dark:text-slate-400">
-                Searching for connections between "{words[0]}" and "{words[1]}"...
+                Searching for connections between &ldquo;{words[0]}&rdquo; and &ldquo;{words[1]}&rdquo;...
               </p>
             </CardContent>
           </Card>
@@ -164,7 +164,7 @@ export default function SearchResults() {
           <Card className="max-w-2xl mx-auto">
             <CardContent className="p-8 text-center">
               <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-4">
-                No results found for "{query}"
+                No results found for &ldquo;{query}&rdquo;
               </h3>
               <p className="text-slate-600 dark:text-slate-400 mb-6">
                 Try different word combinations or explore our example searches for inspiration.
