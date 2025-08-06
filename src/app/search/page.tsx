@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +18,7 @@ interface SearchResult {
   category: string;
 }
 
-export default function SearchResults() {
+function SearchResultsContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -40,7 +40,7 @@ export default function SearchResults() {
           id: "1",
           title: `${query} - Exploring the Connection`,
           url: "https://example.com/connection",
-          snippet: `Discover how ${query} relates to modern trends and innovative applications. This combination reveals unique insights into...`,
+          snippet: `Discover how ${query} relates to modern trends and innovative applications. This combination reveals unique insights into the intersection of these concepts.`,
           relevance: 0.95,
           category: "Analysis"
         },
@@ -48,7 +48,7 @@ export default function SearchResults() {
           id: "2", 
           title: `${query} in Contemporary Context`,
           url: "https://example.com/contemporary",
-          snippet: `The intersection of ${query} represents a growing trend in creative industries and technological innovation...`,
+          snippet: `The intersection of ${query} represents a growing trend in creative industries and technological innovation, offering new perspectives on traditional approaches.`,
           relevance: 0.88,
           category: "Trend"
         },
@@ -56,7 +56,7 @@ export default function SearchResults() {
           id: "3",
           title: `${query} - A New Perspective`,
           url: "https://example.com/perspective", 
-          snippet: `How ${query} challenges traditional boundaries and creates new opportunities for exploration and discovery...`,
+          snippet: `How ${query} challenges traditional boundaries and creates new opportunities for exploration and discovery across various domains.`,
           relevance: 0.82,
           category: "Innovation"
         },
@@ -64,9 +64,17 @@ export default function SearchResults() {
           id: "4",
           title: `${query} Applications and Use Cases`,
           url: "https://example.com/applications",
-          snippet: `Practical applications of ${query} across various industries and domains, from technology to creative arts...`,
+          snippet: `Practical applications of ${query} across various industries and domains, from technology to creative arts and beyond.`,
           relevance: 0.78,
           category: "Applications"
+        },
+        {
+          id: "5",
+          title: `${query} - Future Implications`,
+          url: "https://example.com/future",
+          snippet: `Exploring the future implications of ${query} and how this combination might shape upcoming trends and developments.`,
+          relevance: 0.75,
+          category: "Future"
         }
       ];
 
@@ -209,5 +217,17 @@ export default function SearchResults() {
       
       <Footer />
     </div>
+  );
+}
+
+export default function SearchResults() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    }>
+      <SearchResultsContent />
+    </Suspense>
   );
 } 
